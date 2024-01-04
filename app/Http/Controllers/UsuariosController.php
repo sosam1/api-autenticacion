@@ -14,9 +14,9 @@ class UsuariosController extends Controller
     public function Register(Request $request){
 
         $validation = Validator::make($request->all(),[
-            'usuario' => 'required|max:32|unique:usuarios',
+            'username' => 'required|max:32|unique:usuarios',
             'email' => 'required|max:100',
-            'contrasena' => 'required|confirmed'
+            'password' => 'required|confirmed'
         ]);
 
         if($validation->fails())
@@ -27,9 +27,9 @@ class UsuariosController extends Controller
     }
     private function createUser($request){
         $usuario = new Usuarios();
-        $usuario -> usuario = $request -> post("usuario");
+        $usuario -> username = $request -> post("username");
         $usuario -> email = $request -> post("email");
-        $usuario -> contrasena = Hash::make($request -> post("contrasena"));
+        $usuario -> password = Hash::make($request -> post("password"));
         
         $usuario -> save();
         return $usuario;
